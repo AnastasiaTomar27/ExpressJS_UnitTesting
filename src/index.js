@@ -11,8 +11,20 @@ app.get("/", (req, res) => {
 app.post("/api/product", (req, res) => {
     const { numbers } = req.body;
     const product = numbers.reduce((accumulator, element) => accumulator * element, 1)
-    res.json({ message:  `The product of submitted numbers is ${product}.`});
-    console.log(req.body);
+    //res.json({ message:  `The product of submitted numbers is ${product}.`});
+    //console.log(req.body);
+    var allAreNumbers = true;
+    numbers.forEach(number => {
+        const parsedNumber = parseInt(number);
+        if (isNaN(parsedNumber)) {
+            allAreNumbers = false;
+            return 
+        }
+    })
+    if (allAreNumbers === false) return res.status(400).send({message: "Only numbers can be submitted!"})
+    else return res.json({ message:  `The product of submitted numbers is ${product}.`});
+        
+    
 })
 
 app.listen(PORT, () => {
