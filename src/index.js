@@ -27,6 +27,10 @@ app.post("/api/product", (req, res) => {
     
 })
 
+app.use((err, req, res, next) => {
+    return res.status(500).json({ msg: err.msg || err.message, code: err.code })
+});
+
 app.listen(PORT, () => {
     console.log(`Running on Port ${PORT}`);
 });
