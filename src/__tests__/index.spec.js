@@ -1,5 +1,9 @@
 const request = require('supertest');
 const app = require('../index');
+afterAll(async () => {
+    app.close()
+  });
+
 
 describe('Testing routs', () => {
     test("should respond with a 200 status code and a message Hello", async () => {
